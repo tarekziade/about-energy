@@ -42,27 +42,31 @@ it's not checking the network usage. (xxx verify this)
 In that case, would it make sense to extend this feature and have a specialized
 "about:energy" page in Firefox, like what Powertop has at the OS level?
 
+Or simply enhance "about:performance"?
+
 Would this help tracking web pages that are responsible for reducing
-battery life?
+battery life? Can it lead to finding improvements in Firefox?
 
 This document investigates whether it would make sense to add an
 "about:energy" page in Firefox to specifically track power used by
 tabs and how it could look like.
 
+What other browsers do?
+=======================
+
+XXX talk about Chrome Task Manager.
+XXX
 
 What to measure?
 ================
 
-Measuring power at the process level is quite hard, and there's no precise
+Measuring *power* at the process level is quite hard, and there's no precise
 correlation between what you can measure and the power consumption of a process
 -- and indirectly, how much it affects battery usage.
 
-Finding the cause is also hard, there's no silver bullet. If a web page
-starts to eat of lot of resources, more digging is required.
-
 However, tracking a few metrics can give us some hints on which web pages
 are responsible for energy consumption, this is very interesting
-in particular if they are active in the background.
+in particular if they are being active in the background.
 
 A few useful per-process (per-tab) measures:
 
@@ -72,16 +76,28 @@ A few useful per-process (per-tab) measures:
 - Disk activity
 - Tab in the foreground or background
 
-If a tab has high values in some of those numbers, it's lkely that
+If a tab has high values in some of those numbers, it's likely that
 it's causing more energy consumption than other processes.
 
-Defining a threshold? XXX
+One thing that's hard to define is some kind of formula or threshold.
+When can we flag a tab as being greedy? TBD
 
-Finding the cause:
 
+What to do with the info?
+=========================
+
+Even if tabs that are resources hogs can be detected, finding the root cause
+of the problem is hard, there's no silver bullet. If a web page
+starts to eat of lot of resources, more digging is required.
+
+Finding the cause can be done with those tools:
 - Animation inspector
 - Profilers (gecko etc)
 - dtrace, perf, TimerFirings logging
+
+XXX maybe we could have in about:energy a way to send logs when a tab
+is eating a lot of CPU, with some preliminary findings.
+
 
 
 good reads:
